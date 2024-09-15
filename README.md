@@ -8,3 +8,6 @@ Kemudian relay tambahan harganya tidak nyampai 7500 rupiah. Jadi total 27.500 ru
 
 Tujuan membuat ini untuk apa?
 Yaitu untuk bisa menghidupkan PC saya di rumah yang kebetulan ada UPS-nya. Jadi saya butuh 2, relay yang satu untuk menyalakan UPS dulu, kemudian relay yang satunnya untuk menyalakan PC-nya. Sebenarnya bisa saja langsung ketika UPS nyala kemudian PC nyala dengan menggunakan modul momentary on dengan relay 5 pin seperti yang ada di sini: https://www.tokopedia.com/trikid/modul-momentary-on-dengan-relay-5-pin-modul-set?extParam=whid%3D12879643%26src%3Dchat tapi harganya menurutku mahal. 75rb itupun chargenya harus beli lagi. Saya cari akal gimana supaya ESP 01S 2866 tadi bisa ditambahkan relay. Dan hasil percobaanku ternyata works. 
+
+Cara upload-nya ke ESP 01S 2866 tadi gimana?
+Cukup upload pakai adapter USB to TTL ESP2866 base board, dengan menyambung antara pin GPIO0 dengan ground ketika upload codingnya dengan mamakai Arduino IDE.
