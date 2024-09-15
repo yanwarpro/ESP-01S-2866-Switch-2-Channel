@@ -6,7 +6,7 @@
 /* Fill-in your Template ID, Name, and Auth Token */
 #define BLYNK_TEMPLATE_ID "TMPL69Pr88HmB"
 #define BLYNK_TEMPLATE_NAME "UPS Rumah"
-#define BLYNK_AUTH_TOKEN "EilKTJ3TK4FGQ1EK5abvLqQBeVyh5kc3"  // Deklarasi auth token
+#define BLYNK_AUTH_TOKEN "EilKTJ3TK4FGQ1EK5abvLqQBeVyh5kc3"  // Auth token dari Blynk
 
 // Your WiFi credentials.
 char ssid[] = "ARIS";  // Nama WiFi
@@ -17,7 +17,7 @@ char pass[] = "bismillah2023";  // Password WiFi
 
 // Define the GPIO connected with relays
 #define RelayPin1 0  // GPIO0 untuk relay pertama
-#define RelayPin2 2  // GPIO2 untuk relay kedua
+#define RelayPin2 2  // GPIO3 untuk relay kedua
 
 // Define virtual pins for the buttons in the Blynk app
 #define VPIN_BUTTON_1 V1  // Virtual Pin untuk relay pertama
@@ -38,15 +38,38 @@ BLYNK_WRITE(VPIN_BUTTON_2) {
   digitalWrite(RelayPin2, !toggleState_2);  // Kontrol relay kedua (active-Low)
 }
 
+void reconnectWiFi() {
+  // Coba hubungkan ulang ke WiFi jika tidak terhubung
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi terputus. Mencoba menghubungkan kembali...");
+    WiFi.begin(ssid, pass);
+    
+    // Coba hubungkan selama 10 detik
+    unsigned long startAttemptTime = millis();
+
+    while (WiFi.status() != WL_CONNECTED && millis() - startAttemptTime < 10000) {
+      delay(500);
+      Serial.print(".");
+    }
+    
+    if (WiFi.status() == WL_CONNECTED) {
+      Serial.println("WiFi terhubung kembali.");
+      Serial.println(WiFi.localIP());  // Cetak alamat IP
+    } else {
+      Serial.println("Gagal terhubung ke WiFi.");
+    }
+  }
+}
+
 void setup() {
   Serial.begin(9600);  // Mulai komunikasi serial untuk debugging
   
   pinMode(RelayPin1, OUTPUT);  // Set pin relay pertama sebagai output
   pinMode(RelayPin2, OUTPUT);  // Set pin relay kedua sebagai output
   
-  // Inisialisasi relay sebagai OFF (matikan relay)
-  digitalWrite(RelayPin1, HIGH);  // Relay pertama OFF (aktif-Low)
-  digitalWrite(RelayPin2, LOW);  // Relay kedua OFF (aktif-Low)
+  // Inisialisasi relay dengan status OFF (Low-active)
+  digitalWrite(RelayPin1, HIGH);  // Relay pertama OFF (Low-active)
+  digitalWrite(RelayPin2, LOW);  // Relay kedua OFF (Low-active)
   
   // Hubungkan ke WiFi
   WiFi.begin(ssid, pass);
@@ -72,11 +95,15 @@ void setup() {
 }
 
 void loop() {
-  Blynk.run();  // Jalankan Blynk
+  // Jalankan Blynk
+  Blynk.run();
   
-  // Jika terputus dari Blynk, matikan relay untuk keamanan
-  if (!Blynk.connected()) {
-    digitalWrite(RelayPin1, HIGH);  // Relay pertama OFF
-    digitalWrite(RelayPin2, HIGH);  // Relay kedua OFF
+  // Cek dan hubungkan ulang WiFi jika terputus
+  reconnectWiFi();
+  
+  // Cek status koneksi Blynk dan WiFi
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("WiFi disconnected, relay states will remain as is.");
+    delay(1000);
   }
 }
