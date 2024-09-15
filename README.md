@@ -1,0 +1,1 @@
+Disini saya memodifikasi ESP 01s 2866 1 Channel dengan menambahkan 1 relay lagi sehingga totalnya ada 2 relay. Kita pakai applikasi berbasis cloud yaitu Blynk, karena tujuan utamanya supaya bisa diakses lewat internet. Disini saya memodifikasi beberapa komponen, terutama yang berhubungan dengan pin GPIO2 dengan menambahkan resistor 22K. 
