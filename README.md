@@ -12,3 +12,5 @@ Yaitu untuk bisa menghidupkan PC saya di rumah yang kebetulan ada UPS-nya. Jadi 
 Cara upload-nya ke ESP 01S 2866 tadi gimana?
 Cukup upload pakai adapter USB to TTL ESP2866 base board, dengan menyambung antara pin GPIO0 dengan ground ketika upload codingnya dengan mamakai Arduino IDE. Bentuknya seperti ini: https://shopee.co.id/USB-to-ESP8266-Base-Board-Programmer-Board-i.13486297.6353639731
 
+ESP 01S 2866 seperti ini: https://www.tokopedia.com/snapshot_product?dtl_id=4129052520&order_id=1933116183
+
