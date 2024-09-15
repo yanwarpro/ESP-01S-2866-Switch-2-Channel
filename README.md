@@ -14,3 +14,8 @@ Cukup upload pakai adapter USB to TTL ESP2866 base board, dengan menyambung anta
 
 ESP 01S 2866 seperti ini: https://www.tokopedia.com/snapshot_product?dtl_id=4129052520&order_id=1933116183
 
+UPDATE
+Penambahan loop untuk menyambungkan wifi selama 10 detik jika wifi terputus dan membuat kondisi saklar tetap ON meski wifi terputus, sampai terkoneksi dan adanya perubahan data dari Blynk.
+
+Program ini cocok untuk menghidupkan UPS pada PC 
+
