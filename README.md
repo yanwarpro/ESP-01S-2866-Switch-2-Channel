@@ -15,6 +15,7 @@ Cukup upload pakai adapter USB to TTL ESP2866 base board, dengan menyambung anta
 ESP 01S 2866 seperti ini: https://www.tokopedia.com/snapshot_product?dtl_id=4129052520&order_id=1933116183
 
 Projeknya:
+![IMG_20241006_061541](https://github.com/user-attachments/assets/bf64ba3b-1d7b-4f21-b58b-31763c8bc0bd)
 
 
 UPDATE
