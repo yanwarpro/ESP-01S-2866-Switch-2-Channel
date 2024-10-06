@@ -24,5 +24,5 @@ Penambahan loop untuk menyambungkan wifi selama 10 detik jika wifi terputus dan 
 Program ini cocok untuk menghidupkan UPS pada PC 
 
 Skema
-![Scheme](https://github.com/user-attachments/assets/dc14a7b9-1b4d-4059-bdf2-67a434a28dbd)
+![Scheme](https://github.com/user-attachments/assets/bb950931-0cdd-41d8-8886-4822ea83a509)
 
