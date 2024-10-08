@@ -26,6 +26,11 @@ Program ini cocok untuk menghidupkan UPS dan PC
 Skema
 ![Scheme](https://github.com/user-attachments/assets/bb950931-0cdd-41d8-8886-4822ea83a509)
 
+Issue-nya: 
+Ketika listrik PLN mati, maka UPS tidak backup PC ketika lagi menyala, karena saklar powernya dari charger yang dihubungkan ke listrik PLN. 
+
+Solusinya yaitu ESP 8266 tadi powernya dihubungkan ke Aki yang digunakan untuk UPS dengan menambahkan step down DC to DC dari 12v ke 5v dengan daya 3a.
+
 UPDATE 2
 Berhubung di ESP 8266 tadi ada 2 pin yang nganggur (GPIO1 dan GPI03), maka akan aku manfaatkan dengan menambah 2 saklar lagi yaitu untuk menghidupkan lampu kamar dan kipas angin. 
 
