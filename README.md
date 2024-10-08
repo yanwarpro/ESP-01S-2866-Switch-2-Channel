@@ -27,5 +27,5 @@ Skema
 ![Scheme](https://github.com/user-attachments/assets/bb950931-0cdd-41d8-8886-4822ea83a509)
 
 UPDATE 2
-Berhubung di ESP 8266 tadi ada 2 pin yang nganggur, maka akan aku manfaatkan dengan menambah 2 saklar lagi yaitu untuk menghidupkan lampu kamar dan kipas angin. 
+Berhubung di ESP 8266 tadi ada 2 pin yang nganggur (GPIO1 dan GPI03), maka akan aku manfaatkan dengan menambah 2 saklar lagi yaitu untuk menghidupkan lampu kamar dan kipas angin. 
 
