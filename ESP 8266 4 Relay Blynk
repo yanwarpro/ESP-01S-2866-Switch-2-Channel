@@ -1,0 +1,115 @@
+/**********************************************************************************
+ *  TITLE: Blynk control 4 Relays using ESP-01 (ESP-01/01s) with active-Low relays
+ *  by Tech StudyCell, modified for 4 relays with active-Low logic
+ **********************************************************************************/
+
+/* Fill-in your Template ID, Name, and Auth Token */
+#define BLYNK_TEMPLATE_ID "TMPL69Pr88HmB"
+#define BLYNK_TEMPLATE_NAME "UPS Rumah"
+#define BLYNK_AUTH_TOKEN "EilKTJ3TK4FGQ1EK5abvLqQBeVyh5kc3"  // Auth token dari Blynk
+
+// Your WiFi credentials.
+char ssid[] = "ARIS";  // Nama WiFi
+char pass[] = "bismillah2023";  // Password WiFi
+
+#include <ESP8266WiFi.h>        
+#include <BlynkSimpleEsp8266.h>
+
+// Define the GPIO pins connected with relays
+#define RelayPin1 0  // GPIO0 untuk relay pertama
+#define RelayPin2 2  // GPIO2 untuk relay kedua
+#define RelayPin3 3  // GPIO3 (RX) untuk relay ketiga
+#define RelayPin4 1  // GPIO1 (TX) untuk relay keempat
+
+// Define virtual pins for the buttons in the Blynk app
+#define VPIN_BUTTON_1 V1  // Virtual Pin untuk relay pertama
+#define VPIN_BUTTON_2 V2  // Virtual Pin untuk relay kedua
+#define VPIN_BUTTON_3 V3  // Virtual Pin untuk relay ketiga
+#define VPIN_BUTTON_4 V4  // Virtual Pin untuk relay keempat
+
+// Relay State
+bool toggleState_1 = LOW;  // initial state for relay 1 (OFF)
+bool toggleState_2 = LOW;  // initial state for relay 2 (OFF)
+bool toggleState_3 = LOW;  // initial state for relay 3 (OFF)
+bool toggleState_4 = LOW;  // initial state for relay 4 (OFF)
+
+// When App button is pushed - switch the state
+BLYNK_WRITE(VPIN_BUTTON_1) {
+  toggleState_1 = param.asInt();  // Dapatkan nilai dari aplikasi Blynk
+  digitalWrite(RelayPin1, !toggleState_1);  // Kontrol relay pertama (active-Low)
+}
+
+BLYNK_WRITE(VPIN_BUTTON_2) {
+  toggleState_2 = param.asInt();  // Dapatkan nilai dari aplikasi Blynk
+  digitalWrite(RelayPin2, !toggleState_2);  // Kontrol relay kedua (active-Low)
+}
+
+BLYNK_WRITE(VPIN_BUTTON_3) {
+  toggleState_3 = param.asInt();  // Dapatkan nilai dari aplikasi Blynk
+  digitalWrite(RelayPin3, !toggleState_3);  // Kontrol relay ketiga (active-Low)
+}
+
+BLYNK_WRITE(VPIN_BUTTON_4) {
+  toggleState_4 = param.asInt();  // Dapatkan nilai dari aplikasi Blynk
+  digitalWrite(RelayPin4, !toggleState_4);  // Kontrol relay keempat (active-Low)
+}
+
+void reconnectWiFi() {
+  // Coba hubungkan ulang ke WiFi jika tidak terhubung
+  if (WiFi.status() != WL_CONNECTED) {
+    WiFi.begin(ssid, pass);
+    
+    // Coba hubungkan selama 10 detik
+    unsigned long startAttemptTime = millis();
+
+    while (WiFi.status() != WL_CONNECTED && millis() - startAttemptTime < 10000) {
+      delay(500);
+    }
+    
+    if (WiFi.status() == WL_CONNECTED) {
+      Blynk.connect();
+    }
+  }
+}
+
+void setup() {
+  // Removed Serial.begin() to avoid conflicts with TX/RX pins
+
+  // Set relay pins as OUTPUT
+  pinMode(RelayPin1, OUTPUT);  
+  pinMode(RelayPin2, OUTPUT);  
+  pinMode(RelayPin3, OUTPUT);  
+  pinMode(RelayPin4, OUTPUT);  
+  
+  // Initialize relays as OFF (active-Low logic)
+  digitalWrite(RelayPin1, HIGH);  // Relay pertama OFF
+  digitalWrite(RelayPin2, HIGH);  // Relay kedua OFF
+  digitalWrite(RelayPin3, HIGH);  // Relay ketiga OFF
+  digitalWrite(RelayPin4, HIGH);  // Relay keempat OFF
+  
+  // Connect to WiFi
+  WiFi.begin(ssid, pass);
+  
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+  }
+  
+  // Connect to Blynk Cloud
+  Blynk.config(BLYNK_AUTH_TOKEN);  // Set up Blynk with auth token
+  Blynk.connect();  // Connect to Blynk
+  
+  // Sync relay states with Blynk Cloud
+  Blynk.syncVirtual(VPIN_BUTTON_1);
+  Blynk.syncVirtual(VPIN_BUTTON_2);
+  Blynk.syncVirtual(VPIN_BUTTON_3);
+  Blynk.syncVirtual(VPIN_BUTTON_4);
+}
+
+void loop() {
+  // Run Blynk
+  Blynk.run();
+  
+  // Check and reconnect WiFi if disconnected
+  reconnectWiFi();
+}
